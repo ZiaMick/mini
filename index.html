@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test</title>
+    <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.min.css">
+    <style>
+        #content>tr>td {
+            text-align: center !important;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <select name="day_list" id="day_list">
+    <option value="0320">0320</option>
+</select> -->
+    <table id="example" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>日期</th>
+                <!-- <th>編號</th> -->
+                <th>題目</th>
+                <th>答案</th>
+            </tr>
+        </thead>
+        <tbody id="content">
+            <tr>
+                <td>Tiger Nixon</td>
+                <!-- <td>System Architect</td> -->
+                <td>Edinburgh</td>
+                <td>61</td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+
+</html>
+<!-- <script src="js/jquery-3.4.1.min.js"></script> -->
+<script type="text/javascript" language="javascript" src="js/jquery-3.3.1.js"></script>
+<script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" class="init">
+    $.get('https://spreadsheets.google.com/feeds/list/116iW5mkRf3Rgj_RPpE2vkAaQjOFjyVV-gl9fJIMtW5U/1/public/values?alt=json', function (data) {
+        // console.log(data);
+        // console.log(JSON.stringify(data));
+        var params = [];
+
+        var M = data.feed.entry;
+        $("#content").empty();
+        for (var i = 0, iMax = M.length; i < iMax; i++) { //全部資料
+            var obj = {};
+            var day = M[i].gsx$day.$t;
+            var no = M[i].gsx$no.$t;
+            var theme = M[i].gsx$theme.$t;
+            var ans = M[i].gsx$ans.$t;
+
+            obj.day = day;
+            obj.no = no;
+            obj.theme = theme;
+            obj.ans = ans;
+
+            params.push(obj);
+
+            html = `<tr>`
+            html += `<td>${day}</td>`
+            // html += `<td>${no}</td>`
+            html += `<td>${theme}</td>`
+            html += `<td>${ans}</td>`
+            html += `</tr>`
+            $("#content").append(html);
+        };
+
+        // console.log(obj)
+        // console.log(params)
+        console.log(JSON.stringify(params))
+        // console.log(M.length)
+        // console.log(day)
+
+        $('#example').DataTable({
+            "language": {
+                "processing": "處理中...",
+                "loadingRecords": "載入中...",
+                "lengthMenu": "顯示 _MENU_ 項結果",
+                "zeroRecords": "沒有符合的結果",
+                "info": "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
+                "infoEmpty": "顯示第 0 至 0 項結果，共 0 項",
+                "infoFiltered": "(從 _MAX_ 項結果中過濾)",
+                "infoPostFix": "",
+                "search": "搜尋:",
+                "paginate": {
+                    "first": "第一頁",
+                    "previous": "上一頁",
+                    "next": "下一頁",
+                    "last": "最後一頁"
+                },
+                "aria": {
+                    "sortAscending": ": 升冪排列",
+                    "sortDescending": ": 降冪排列"
+                }
+            },
+            "lengthMenu": [5, 10, 15, 20, 25, 30, 50, 100],
+            // "searching": false, //搜尋功能, 預設是開啟
+            // "paging": false, //分頁功能, 預設是開啟
+            // "ordering": false //排序功能, 預設是開啟
+            // "ajax": {
+            //     "url": "https://spreadsheets.google.com/feeds/list/116iW5mkRf3Rgj_RPpE2vkAaQjOFjyVV-gl9fJIMtW5U/1/public/values?alt=json", //要抓哪個地方的資料
+            //     "type": "GET", //使用什麼方式抓
+            //     "dataType": 'json', //回傳資料的類型
+            //     "success": function () {
+            //         console.log("你是右邊!!")
+            //     }, //成功取得回傳時的事件
+            //     "error": function () {
+            //         console.log("資料取得失敗 回去檢討檢討")
+            //     } //失敗事件
+            // }
+        });
+    });
+</script>
+<script>
+
+
+    //Google-Script
+    //https://script.google.com/macros/s/AKfycbxZW-sy2kxq2DY1FjSMu54WdSqeq2jypc7PeXPD_F7LjtSRKJ0P/exec
+
+    //Google-Excel-ID
+    //116iW5mkRf3Rgj_RPpE2vkAaQjOFjyVV-gl9fJIMtW5U 
+
+    //Google-轉換json(需用JS取)
+    //https://spreadsheets.google.com/feeds/list/{excel_id}/{sheet}/public/values?alt=json
+    //                                               ↑         ↑
+    // 
+    // $(function () {
+    //     $.get('https://spreadsheets.google.com/feeds/list/116iW5mkRf3Rgj_RPpE2vkAaQjOFjyVV-gl9fJIMtW5U/1/public/values?alt=json', function (data) {
+    //         console.log(data);
+    //         //console.log(JSON.stringify(data));
+    //         // var params = [];
+
+    //         // var M = data.feed.entry;
+    //         // for (var i = 0, iMax = M.length; i < iMax; i++) { //全部資料
+    //         //     var obj = {};
+    //         //     var day = M[i].gsx$day.$t;
+    //         //     var no = M[i].gsx$no.$t;
+    //         //     var theme = M[i].gsx$theme.$t;
+    //         //     var ans = M[i].gsx$ans.$t;
+
+    //         //     obj.day = day;
+    //         //     obj.no = no;
+    //         //     obj.theme = theme;
+    //         //     obj.ans = ans;
+
+    //         //     params.push(obj);
+    //         //     //$("#list").append(`${day},${no},${theme},${ans}★`);
+    //         // };
+    //         // console.log(obj)
+    //         // console.log(params)
+    //         // console.log(JSON.stringify(params))
+    //         // console.log(M.length)
+    //         // console.log(day)
+
+    //     });
+    // });
+
+    // $.ajax({
+    //     type: "post",
+    //     data: {
+    //         "method": "write",
+    //         "name": "Wayne",
+    //         "sex": "male",
+    //         "remark": "測試寫入功能"
+    //     },
+    //     url: "https://script.google.com/macros/s/AKfycbxZW-sy2kxq2DY1FjSMu54WdSqeq2jypc7PeXPD_F7LjtSRKJ0P/exec" // 填入網路應用程式網址
+    // });
+
+
+    var Today = new Date();
+    var TodayDdata = `0${(Today.getMonth() + 1)}${Today.getDate()} `;
+    console.log(TodayDdata)
+    setTimeout(function () {
+        $("#example_filter>label>input").focus();
+        setTimeout(function () {
+            $("#example_filter>label>input").val(TodayDdata);
+            var e = jQuery.Event("keyup");//模拟一个键盘事件
+            e.keyCode = 8;//keyCode=8是空格
+            $("#example_filter>label>input").trigger(e);//模拟按下空格键
+        }, 200);
+
+        html2 = `<span>日期：`
+        html2 += `<select name="day_list" id="day_list">`
+        html2 += `<option value="0320">0320</option>`
+        html2 += `</select>`
+        html2 += `</span>`
+        $("#example_filter").prepend(html2);
+    }, 500);
+
+
+</script>
