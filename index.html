@@ -10,6 +10,30 @@
         #content>tr>td {
             text-align: center !important;
         }
+
+        /* .paginate_button {
+            border-radius: 10px !important;
+        }
+
+        .current {
+            background: blue;
+        } */
+
+        .day {
+            width: 40px;
+        }
+
+        .no {
+            width: 20px;
+        }
+
+        .theme {
+            width: 200px;
+        }
+
+        .ans {
+            width: 100px;
+        }
     </style>
 </head>
 
@@ -33,16 +57,106 @@
                 <td>Edinburgh</td>
                 <td>61</td>
             </tr>
+            <tr>
+                <td>Tiger Nixon</td>
+                <!-- <td>System Architect</td> -->
+                <td>Edinburgh</td>
+                <td>61</td>
+            </tr>
+            <tr>
+                <td>Tiger Nixon</td>
+                <!-- <td>System Architect</td> -->
+                <td>Edinburgh</td>
+                <td>61</td>
+            </tr>
+            <tr>
+                <td>Tiger Nixon</td>
+                <!-- <td>System Architect</td> -->
+                <td>Edinburgh</td>
+                <td>61</td>
+            </tr>
+            <tr>
+                <td>Tiger Nixon</td>
+                <!-- <td>System Architect</td> -->
+                <td>Edinburgh</td>
+                <td>61</td>
+            </tr>
+            <tr>
+                <td>Tiger Nixon</td>
+                <!-- <td>System Architect</td> -->
+                <td>Edinburgh</td>
+                <td>61</td>
+            </tr>
+            <tr>
+                <td>Tiger Nixon</td>
+                <!-- <td>System Architect</td> -->
+                <td>Edinburgh</td>
+                <td>61</td>
+            </tr>
         </tbody>
     </table>
+    <div>
+        <input type="text" id="password">
+        <button id="password_bn">POST</button>※開啟輸入題目用(一般使用者請勿使用!)
+    </div>
+    <div id="keying"><br>
+        <b style="color:red">※請一次輸人完五題(日期、題目、答案)在點擊確認!
+            若沒參照指示，請自行至<a href="javascript: void(0)" onclick="link()">Googe Excel</a>自行修改!!!</b>
+        <table>
+            <thead>
+                <tr>
+                    <td>日期</td>
+                    <td>序號</td>
+                    <td>題目</td>
+                    <td>答案</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="text" class="day" id="day"></td>
+                    <td><input type="text" class="no" id="no"></td>
+                    <td><input type="text" class="theme" id="theme"></td>
+                    <td><input type="text" class="ans" id="ans"></td>
+                </tr>
+                <tr>
+                    <td><input type="text" class="day" id="day1"></td>
+                    <td><input type="text" class="no" id="no1"></td>
+                    <td><input type="text" class="theme" id="theme1"></td>
+                    <td><input type="text" class="ans" id="ans1"></td>
+                </tr>
+                <tr>
+                    <td><input type="text" class="day" id="day2"></td>
+                    <td><input type="text" class="no" id="no2"></td>
+                    <td><input type="text" class="theme" id="theme2"></td>
+                    <td><input type="text" class="ans" id="ans2"></td>
+                </tr>
+                <tr>
+                    <td><input type="text" class="day" id="day3"></td>
+                    <td><input type="text" class="no" id="no3"></td>
+                    <td><input type="text" class="theme" id="theme3"></td>
+                    <td><input type="text" class="ans" id="ans3"></td>
+                </tr>
+                <tr>
+                    <td><input type="text" class="day" id="day4"></td>
+                    <td><input type="text" class="no" id="no4"></td>
+                    <td><input type="text" class="theme" id="theme4"></td>
+                    <td><input type="text" class="ans" id="ans4"></td>
+                </tr>
+            </tbody>
+        </table>
+        <button id="test" onclick="post_theme()">送出</button><br>
 
+    </div>
 </body>
 
 </html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <!-- <script src="js/jquery-3.4.1.min.js"></script> -->
 <script type="text/javascript" language="javascript" src="js/jquery-3.3.1.js"></script>
 <script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" class="init">
+    //https://script.google.com/macros/s/AKfycbw-S3PA4MbT7khB-kCopufGGhwwrkE4qRTQRB5ycMpFcPsB0m0/exec   api
+
     $.get('https://spreadsheets.google.com/feeds/list/116iW5mkRf3Rgj_RPpE2vkAaQjOFjyVV-gl9fJIMtW5U/1/public/values?alt=json', function (data) {
         // console.log(data);
         // console.log(JSON.stringify(data));
@@ -73,11 +187,11 @@
             $("#content").append(html);
         };
 
-        // console.log(obj)
-        // console.log(params)
-        console.log(JSON.stringify(params))
-        // console.log(M.length)
-        // console.log(day)
+        //     // console.log(obj)
+        //     // console.log(params)
+        //     console.log(JSON.stringify(params))
+        //     // console.log(M.length)
+        //     // console.log(day)
 
         $('#example').DataTable({
             "language": {
@@ -106,6 +220,160 @@
     });
 </script>
 <script>
+    $("#keying").hide();
+    $("#day").on("change", function () {
+        var D1 = $("#day").val();
+        $("#day1").val(D1);
+        $("#day2").val(D1);
+        $("#day3").val(D1);
+        $("#day4").val(D1);
+    })
+    $("#password_bn").on("click", function () {
+        var PW = $("#password").val();
+        if (PW == "2097057") {
+            $("#keying").show();
+        } else {
+            $("#keying").hide();
+        };
+    })
+    // $.ajax({
+    //     type: "post",
+    //     url: "https://script.google.com/macros/s/AKfycbw-S3PA4MbT7khB-kCopufGGhwwrkE4qRTQRB5ycMpFcPsB0m0/exec",
+    //     data: {
+    //         //"order_time": $("input[name=time]").val(),
+    //         "order_day" : "0555",
+    //         "order_no" : "999",
+    //         "order_theme" : "測試1",
+    //         "order_ans" : "測試答案"
+    //     },
+    //     success: function (response) {
+    //         if (response == "成功") {
+    //             alert("成功::::" + "no");
+    //         }
+    //     }
+    // });
+    function link() {
+        window.location.replace('https://docs.google.com/spreadsheets/d/116iW5mkRf3Rgj_RPpE2vkAaQjOFjyVV-gl9fJIMtW5U/edit#gid=0', '_blank');
+    }
+
+    function post_theme() {
+        // setTimeout(function () {
+        //     $.post("https://script.google.com/macros/s/AKfycbw-S3PA4MbT7khB-kCopufGGhwwrkE4qRTQRB5ycMpFcPsB0m0/exec", {
+        //         "day": document.getElementById("day").value,
+        //         "no": document.getElementById("no").value,
+        //         "theme": document.getElementById("theme").value,
+        //         "ans": document.getElementById("ans").value,
+        //     });
+        // }, 100);
+        post_content()
+    }
+
+    function post_content() {
+        //for (var i = 1, iMax = 6; i < iMax; i++) {
+        //setTimeout(function () {
+        // $.post("https://script.google.com/macros/s/AKfycbw-S3PA4MbT7khB-kCopufGGhwwrkE4qRTQRB5ycMpFcPsB0m0/exec", {
+        //     "day": document.getElementById("day" + i + "").value,
+        //     "no": document.getElementById("no" + i + "").value,
+        //     "theme": document.getElementById("theme" + i + "").value,
+        //     "ans": document.getElementById("ans" + i + "").value,
+        // });
+        var day = $("#day").val();
+        var no = $("#no").val();
+        var theme = $("#theme").val();
+        var ans = $("#ans").val();
+
+        var day1 = $("#day1").val();
+        var no1 = $("#no1").val();
+        var theme1 = $("#theme1").val();
+        var ans1 = $("#ans1").val();
+
+        var day2 = $("#day2").val();
+        var no2 = $("#no2").val();
+        var theme2 = $("#theme2").val();
+        var ans2 = $("#ans2").val();
+
+        var day3 = $("#day3").val();
+        var no3 = $("#no3").val();
+        var theme3 = $("#theme3").val();
+        var ans3 = $("#ans3").val();
+
+        var day4 = $("#day4").val();
+        var no4 = $("#no4").val();
+        var theme4 = $("#theme4").val();
+        var ans4 = $("#ans4").val();
+        $.post("https://script.google.com/macros/s/AKfycbw-S3PA4MbT7khB-kCopufGGhwwrkE4qRTQRB5ycMpFcPsB0m0/exec", {
+            "day": day,
+            "no": no,
+            "theme": theme,
+            "ans": ans,
+        });
+        console.log("0：" + day + no + theme + ans)
+        setTimeout(function () {
+            $.post("https://script.google.com/macros/s/AKfycbw-S3PA4MbT7khB-kCopufGGhwwrkE4qRTQRB5ycMpFcPsB0m0/exec", {
+                "day": day1,
+                "no": no1,
+                "theme": theme1,
+                "ans": ans1,
+            });
+        }, 400);
+        console.log("1：" + day1 + no1 + theme1 + ans1)
+        setTimeout(function () {
+            $.post("https://script.google.com/macros/s/AKfycbw-S3PA4MbT7khB-kCopufGGhwwrkE4qRTQRB5ycMpFcPsB0m0/exec", {
+                "day": day2,
+                "no": no2,
+                "theme": theme2,
+                "ans": ans2,
+            });
+        }, 800);
+        console.log("2：" + day2 + no2 + theme2 + ans2)
+        setTimeout(function () {
+            $.post("https://script.google.com/macros/s/AKfycbw-S3PA4MbT7khB-kCopufGGhwwrkE4qRTQRB5ycMpFcPsB0m0/exec", {
+                "day": day3,
+                "no": no3,
+                "theme": theme3,
+                "ans": ans3,
+            });
+        }, 1200);
+        console.log("3：" + day3 + no3 + theme3 + ans3)
+        setTimeout(function () {
+            $.post("https://script.google.com/macros/s/AKfycbw-S3PA4MbT7khB-kCopufGGhwwrkE4qRTQRB5ycMpFcPsB0m0/exec", {
+                "day": day4,
+                "no": no4,
+                "theme": theme4,
+                "ans": ans4,
+            });
+        }, 1600);
+        console.log("4：" + day4 + no4 + theme4 + ans4)
+        setTimeout(function () {
+            alert("已成功送出!");
+            var day = $("#day").val("");
+            var no = $("#no").val("");
+            var theme = $("#theme").val("");
+            var ans = $("#ans").val("");
+
+            var day1 = $("#day1").val("");
+            var no1 = $("#no1").val("");
+            var theme1 = $("#theme1").val("");
+            var ans1 = $("#ans1").val("");
+
+            var day2 = $("#day2").val("");
+            var no2 = $("#no2").val("");
+            var theme2 = $("#theme2").val("");
+            var ans2 = $("#ans2").val("");
+
+            var day3 = $("#day3").val("");
+            var no3 = $("#no3").val("");
+            var theme3 = $("#theme3").val("");
+            var ans3 = $("#ans3").val("");
+
+            var day4 = $("#day4").val("");
+            var no4 = $("#no4").val("");
+            var theme4 = $("#theme4").val("");
+            var ans4 = $("#ans4").val("");
+        }, 1700);
+        //}, 100);
+        //};
+    }
     var dt = new Date();
     var MM = (dt.getMonth() + 1 < 10 ? '0' : '') + (dt.getMonth() + 1);
     var dd = (dt.getDate() < 10 ? '0' : '') + dt.getDate();
