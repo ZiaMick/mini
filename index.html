@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>test</title>
+    <title>mini</title>
     <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.min.css">
     <style>
         #content>tr>td {
@@ -102,98 +102,38 @@
                 }
             },
             "lengthMenu": [5, 10, 15, 20, 25, 30, 50, 100],
-            // "searching": false, //搜尋功能, 預設是開啟
-            // "paging": false, //分頁功能, 預設是開啟
-            // "ordering": false //排序功能, 預設是開啟
-            // "ajax": {
-            //     "url": "https://spreadsheets.google.com/feeds/list/116iW5mkRf3Rgj_RPpE2vkAaQjOFjyVV-gl9fJIMtW5U/1/public/values?alt=json", //要抓哪個地方的資料
-            //     "type": "GET", //使用什麼方式抓
-            //     "dataType": 'json', //回傳資料的類型
-            //     "success": function () {
-            //         console.log("你是右邊!!")
-            //     }, //成功取得回傳時的事件
-            //     "error": function () {
-            //         console.log("資料取得失敗 回去檢討檢討")
-            //     } //失敗事件
-            // }
         });
     });
 </script>
 <script>
+    var dt = new Date();
+    var MM = (dt.getMonth() + 1 < 10 ? '0' : '') + (dt.getMonth() + 1);
+    var dd = (dt.getDate() < 10 ? '0' : '') + dt.getDate();
 
+    var date = MM + dd;
+    date = date.toString("yyyy/MM/dd");
 
-    //Google-Script
-    //https://script.google.com/macros/s/AKfycbxZW-sy2kxq2DY1FjSMu54WdSqeq2jypc7PeXPD_F7LjtSRKJ0P/exec
-
-    //Google-Excel-ID
-    //116iW5mkRf3Rgj_RPpE2vkAaQjOFjyVV-gl9fJIMtW5U 
-
-    //Google-轉換json(需用JS取)
-    //https://spreadsheets.google.com/feeds/list/{excel_id}/{sheet}/public/values?alt=json
-    //                                               ↑         ↑
-    // 
-    // $(function () {
-    //     $.get('https://spreadsheets.google.com/feeds/list/116iW5mkRf3Rgj_RPpE2vkAaQjOFjyVV-gl9fJIMtW5U/1/public/values?alt=json', function (data) {
-    //         console.log(data);
-    //         //console.log(JSON.stringify(data));
-    //         // var params = [];
-
-    //         // var M = data.feed.entry;
-    //         // for (var i = 0, iMax = M.length; i < iMax; i++) { //全部資料
-    //         //     var obj = {};
-    //         //     var day = M[i].gsx$day.$t;
-    //         //     var no = M[i].gsx$no.$t;
-    //         //     var theme = M[i].gsx$theme.$t;
-    //         //     var ans = M[i].gsx$ans.$t;
-
-    //         //     obj.day = day;
-    //         //     obj.no = no;
-    //         //     obj.theme = theme;
-    //         //     obj.ans = ans;
-
-    //         //     params.push(obj);
-    //         //     //$("#list").append(`${day},${no},${theme},${ans}★`);
-    //         // };
-    //         // console.log(obj)
-    //         // console.log(params)
-    //         // console.log(JSON.stringify(params))
-    //         // console.log(M.length)
-    //         // console.log(day)
-
-    //     });
-    // });
-
-    // $.ajax({
-    //     type: "post",
-    //     data: {
-    //         "method": "write",
-    //         "name": "Wayne",
-    //         "sex": "male",
-    //         "remark": "測試寫入功能"
-    //     },
-    //     url: "https://script.google.com/macros/s/AKfycbxZW-sy2kxq2DY1FjSMu54WdSqeq2jypc7PeXPD_F7LjtSRKJ0P/exec" // 填入網路應用程式網址
-    // });
-
-
-    var Today = new Date();
-    var TodayDdata = `0${(Today.getMonth() + 1)}${Today.getDate()} `;
-    console.log(TodayDdata)
+    console.log(date)
     setTimeout(function () {
-        $("#example_filter>label>input").focus();
-        setTimeout(function () {
-            $("#example_filter>label>input").val(TodayDdata);
-            var e = jQuery.Event("keyup");//模拟一个键盘事件
-            e.keyCode = 8;//keyCode=8是空格
-            $("#example_filter>label>input").trigger(e);//模拟按下空格键
-        }, 200);
-
-        html2 = `<span>日期：`
-        html2 += `<select name="day_list" id="day_list">`
-        html2 += `<option value="0320">0320</option>`
-        html2 += `</select>`
-        html2 += `</span>`
-        $("#example_filter").prepend(html2);
+        switch (date) {
+            case undefined:
+            case null:
+            case NaN:
+                break;
+            case "0401":
+            case "0402":
+            case "0403":
+            case "0404":
+            case "0405":
+            case "0406":
+                //$("#example_filter>label>input").focus();
+                setTimeout(function () {
+                    $("#example_filter>label>input").val(date);
+                    var e = jQuery.Event("keyup");//模拟一个键盘事件
+                    e.keyCode = 8;//keyCode=8是空格
+                    $("#example_filter>label>input").trigger(e);//模拟按下空格键
+                }, 300);
+                break;
+        };
     }, 500);
-
-
 </script>
