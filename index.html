@@ -224,7 +224,11 @@
 
 <body>
 
-
+    <div>
+        相關連接：
+        <select name="web_link" id="web_link" onchange="window.open(this.options[this.selectedIndex].value)">
+        </select>
+    </div>
     <!-- test1 -->
     <div>
         遊戲序號：
@@ -394,7 +398,23 @@
             }
         });
     }
-
+    //相關連接
+    var link_data = [
+        { "name": "國際版FB官方(中文)", "link": "https://www.facebook.com/groups/288136335398593/" },
+        { "name": "國際版FB官方(英文)", "link": "https://www.facebook.com/miniworldtech/" },
+        { "name": "國際版FB官方(馬來西亞)", "link": "https://www.facebook.com/groups/2088795834666143/" },
+        { "name": "國際版FB官方(西班牙)", "link": "https://www.facebook.com/groups/1299423453542316/" },
+        { "name": "國際版官網", "link": "www.miniworldgame.com" },
+        { "name": "4399迷你世界", "link": "http://news.4399.com/mnsj/" },
+        { "name": "ifreesite顏色色碼", "link": "https://www.ifreesite.com/color/" }
+    ];
+    $("#web_link").empty().append(`<option value="">請選擇</option>`);
+    for (var i = 0, iMax = link_data.length; i < iMax; i++) {
+        var name = link_data[i].name;
+        var new_link = link_data[i].link;
+        html_link = `<option value="${new_link}">${name}</option>`
+        $("#web_link").append(html_link);
+    };
 
     //下拉選單更新 text1
     $("#select_gameNum").on("change", function () {
@@ -415,7 +435,7 @@
                 html1 += `<th>起始日期</th>`
                 html1 += `<th>結束日期</th>`
                 html1 += `<th>序號</th>`
-                html1 += `<th>提供者</th>`
+                html1 += `<th>分享</th>`
                 html1 += `</tr>`
                 html1 += `</thead>`
                 html1 += `<tbody id="content1">`
@@ -670,9 +690,9 @@
         };
     })
 
-    function link() {
-        window.location.replace('https://docs.google.com/spreadsheets/d/116iW5mkRf3Rgj_RPpE2vkAaQjOFjyVV-gl9fJIMtW5U/edit#gid=0', '_blank');
-    }
+    // function link() {
+    //     window.location.replace('https://docs.google.com/spreadsheets/d/116iW5mkRf3Rgj_RPpE2vkAaQjOFjyVV-gl9fJIMtW5U/edit#gid=0', '_blank');
+    // }
 
     //textarrea自動增高
     jQuery(function ($) {
