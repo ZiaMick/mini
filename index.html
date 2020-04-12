@@ -5,19 +5,86 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>mini</title>
+    <link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css' rel='stylesheet'>
+    </link>
     <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="css/flexslider.css" type="text/css">
+
     <style>
-        #content>tr>td {
+        body {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        select {
+            min-width: 260px;
+            height: 30px;
+            border-radius: 5px 5px 5px 5px;
+            margin: 5px 0 5px 0;
+        }
+
+        input {
+            min-width: 262px;
+            height: 25px;
+            border-radius: 5px 5px 5px 5px;
+            border: 1px gray solid;
+            margin: 5px 0 5px 0;
+        }
+
+        textarea {
+            min-width: 260px;
+            min-height: 100px;
+            border-radius: 5px 5px 5px 5px;
+            border: 1px gray solid;
+            margin: 5px 0 5px 0;
+        }
+
+        #message>div>ul {
+            padding-inline-start: 20px;
+            margin: 0;
+        }
+
+        #message>div>ul>li {
+            list-style: none;
+        }
+
+        #content>tr>td,
+        #content1>tr>td,
+        #content2>tr>td {
             text-align: center !important;
         }
 
-        /* .paginate_button {
-            border-radius: 10px !important;
+        #content>.odd,
+        #content1>.odd,
+        #content2>.odd {
+            background: #f9f9f9;
         }
 
-        .current {
-            background: blue;
-        } */
+        #content>.odd:nth-child(1),
+        #content1>.odd:nth-child(1),
+        #content2>.odd:nth-child(1) {
+            background: #f0f0f0;
+        }
+
+        #content>.odd:hover,
+        .even:hover,
+        #content1>.odd:hover,
+        .even:hover,
+        #content2>.odd:hover,
+        .even:hover {
+            background: #cfcfcf;
+        }
+
+        #example,
+        #example1,
+        #example2 {
+            width: 100%;
+        }
+
+        #message {
+            /* width: 300px; */
+            background: rgb(204, 204, 204);
+        }
 
         .day {
             width: 40px;
@@ -34,83 +101,214 @@
         .ans {
             width: 100px;
         }
+
+        .flex-direction-nav a.flex-next:before {
+            content: "》" !important;
+            /* 可url */
+        }
+
+        .flex-direction-nav a.flex-prev:before {
+            content: "《" !important;
+        }
+
+        /* 標題背景 */
+        .flex-active-slide {
+            background: red;
+        }
+
+        .flex {
+            width: 100%;
+            max-height: 300px;
+            overflow-y: scroll;
+        }
+
+        .input {
+            width: 100%;
+            max-height: 300px;
+            background: slategray;
+        }
+
+        .right {
+            text-align: right;
+        }
+
+        .left {
+            text-align: left;
+        }
+
+        .cont {
+            max-width: 320px;
+            padding: 10px 10px 10px 10px;
+            margin: 15px;
+            border-radius: 5px;
+            background: gray;
+            word-break: break-all;
+        }
+
+        .right>.cont {
+            background: teal;
+        }
+
+        .cont>span:nth-child(1) {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .cont>span:nth-child(2) {
+            font-size: 12px;
+        }
+
+        .cont>span:nth-child(3) {
+            float: right;
+            font-size: 6px;
+            opacity: 0.2;
+            margin: -5px 5px 0 0;
+        }
+
+        .title {
+            text-align: center;
+        }
+
+        .bn {
+            text-align: center;
+            line-height: 30px;
+            width: 265px;
+            height: 30px;
+            border-radius: 5px;
+            background: tan;
+            margin: 5px 0 5px 0;
+        }
+
+        .bn:hover {
+            background: rgb(150, 127, 96);
+        }
+
+        .bn-del {
+            width: 40px;
+            height: 20px;
+            opacity: 0.8;
+            border-radius: 5px;
+            font-size: 10px;
+            color: khaki;
+            margin: 5px 0 0 0;
+            text-align: center;
+            line-height: 20px;
+            background: silver;
+        }
+
+        .X-close {
+            position: relative;
+            width: 20px;
+            height: 20px;
+            float: right;
+            margin: 0 25px 0 0px;
+            border-radius: 0 0 5px 5px;
+            background: tomato;
+            transition: all .5s;
+            -moz-transition: all .5s;
+            -webkit-transition: all .5s;
+            -o-transition: all .5s;
+        }
+
+        .X-close:hover {
+            background: red;
+        }
+
+        .X-close::before {
+            content: "X" !important;
+            position: absolute;
+            left: 4px;
+        }
     </style>
 </head>
 
 <body>
-    <!-- <select name="day_list" id="day_list">
-    <option value="0320">0320</option>
-</select> -->
-    <table id="example" class="display" style="width:100%">
-        <thead>
-            <tr>
-                <th>日期</th>
-                <!-- <th>編號</th> -->
-                <th>題目</th>
-                <th>答案</th>
-            </tr>
-        </thead>
-        <tbody id="content">
-            <tr>
-                <td>Tiger Nixon</td>
-                <!-- <td>System Architect</td> -->
-                <td>Edinburgh</td>
-                <td>61</td>
-            </tr>
-        </tbody>
-    </table>
+
+    <!-- test1 -->
     <div>
-        <input type="text" id="password">
-        <button id="password_bn">POST</button>※開啟輸入題目用(一般使用者請勿使用!)
+        遊戲序號：
+        <select name="select_gameNum" id="select_gameNum">
+            <option value="">請選擇</option>
+            <option value="1">遊戲內序號</option>
+        </select>
     </div>
-    <div id="keying"><br>
-        <b style="color:red">※請一次輸人完五題(日期、題目、答案)在點擊確認!
-            若沒參照指示，請自行至<a href="javascript: void(0)" onclick="link()">Googe Excel</a>自行修改!!!</b>
-        <table>
-            <thead>
-                <tr>
-                    <td>日期</td>
-                    <td>序號</td>
-                    <td>題目</td>
-                    <td>答案</td>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><input type="text" class="day" id="day"></td>
-                    <td><input type="text" class="no" id="no"></td>
-                    <td><input type="text" class="theme" id="theme"></td>
-                    <td><input type="text" class="ans" id="ans"></td>
-                </tr>
-                <tr>
-                    <td><input type="text" class="day" id="day1"></td>
-                    <td><input type="text" class="no" id="no1"></td>
-                    <td><input type="text" class="theme" id="theme1"></td>
-                    <td><input type="text" class="ans" id="ans1"></td>
-                </tr>
-                <tr>
-                    <td><input type="text" class="day" id="day2"></td>
-                    <td><input type="text" class="no" id="no2"></td>
-                    <td><input type="text" class="theme" id="theme2"></td>
-                    <td><input type="text" class="ans" id="ans2"></td>
-                </tr>
-                <tr>
-                    <td><input type="text" class="day" id="day3"></td>
-                    <td><input type="text" class="no" id="no3"></td>
-                    <td><input type="text" class="theme" id="theme3"></td>
-                    <td><input type="text" class="ans" id="ans3"></td>
-                </tr>
-                <tr>
-                    <td><input type="text" class="day" id="day4"></td>
-                    <td><input type="text" class="no" id="no4"></td>
-                    <td><input type="text" class="theme" id="theme4"></td>
-                    <td><input type="text" class="ans" id="ans4"></td>
-                </tr>
-            </tbody>
-        </table>
-        <button id="test" onclick="post_theme()">送出</button><br>
+    <div id="in_content_1">
+
     </div>
-    <br>
+
+    <!-- test2 -->
+    <div>
+        活動序號：
+        <select name="select_webNum" id="select_webNum">
+            <option value="">請選擇</option>
+            <option value="1">活動序號</option>
+        </select>
+    </div>
+    <div id="in_content_2">
+    </div>
+
+    <!-- test3 -->
+    <div>
+        活動題目：
+        <select name="select_Web" id="select_Web">
+            <option value="">請選擇</option>
+            <option value="1">雪豹知多少</option>
+        </select>
+    </div>
+
+    <!-- photo -->
+    <div id="in_content_3">
+        <!-- <div class="flexslider">
+            <ul class="slides">
+                <li>
+                    <img src="A1.jpg" />
+                    <p class="flex-caption">Adventurer Cheesecake Brownie</p>
+                </li>
+                <li>
+                    <img src="A2.jpg" />
+                    <p class="flex-caption">Adventurer Lemon</p>
+                </li>
+                <li>
+                    <img src="A3.jpg" />
+                    <p class="flex-caption">Adventurer Donut</p>
+                </li>
+            </ul>
+        </div> -->
+    </div>
+
+
+    <!-- message -->
+    <div id="message" name="message">
+        <div id="msg" class="flex">
+
+            <div class="row right">
+                <div class="cont">
+                    <span>Name</span>
+                    <span>202020</span>
+                    <div>akjf;akjf;kasjf;sad1111111111111111111111112222222222222221111111111111111111111111f</div>
+                </div>
+            </div>
+            <div class="row left">
+                <div class="cont">
+                    <span>Name</span>
+                    <span>202020</span>
+                    <div>akjf;akjf;kasjf;sadf</div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="input">
+            <ul>
+                <li><br>姓名：<br><input type="text" id="input_name"></li>
+                <li>內容：<br><textarea name="input_content" id="input_content"></textarea></li>
+                <div class="bn" onclick="post_text()">送出</div>
+                <div style="height: 10px;"></div>
+            </ul>
+        </div>
+    </div>
+
+
 </body>
 
 </html>
@@ -118,254 +316,374 @@
 <!-- <script src="js/jquery-3.4.1.min.js"></script> -->
 <script type="text/javascript" language="javascript" src="js/jquery-3.3.1.js"></script>
 <script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" class="init">
-    //https://script.google.com/macros/s/AKfycbw-S3PA4MbT7khB-kCopufGGhwwrkE4qRTQRB5ycMpFcPsB0m0/exec   api
-
-    $.get('https://spreadsheets.google.com/feeds/list/116iW5mkRf3Rgj_RPpE2vkAaQjOFjyVV-gl9fJIMtW5U/1/public/values?alt=json', function (data) {
-        // console.log(data);
-        // console.log(JSON.stringify(data));
-        var params = [];
-
-        var M = data.feed.entry;
-        $("#content").empty();
-        for (var i = 0, iMax = M.length; i < iMax; i++) { //全部資料
-            var obj = {};
-            var day = M[i].gsx$day.$t;
-            var no = M[i].gsx$no.$t;
-            var theme = M[i].gsx$theme.$t;
-            var ans = M[i].gsx$ans.$t;
-
-            obj.day = day;
-            obj.no = no;
-            obj.theme = theme;
-            obj.ans = ans;
-
-            params.push(obj);
-
-            html = `<tr>`
-            html += `<td>${day}</td>`
-            // html += `<td>${no}</td>`
-            html += `<td>${theme}</td>`
-            html += `<td>${ans}</td>`
-            html += `</tr>`
-            $("#content").append(html);
-        };
-
-        //     // console.log(obj)
-        //     // console.log(params)
-        //     console.log(JSON.stringify(params))
-        //     // console.log(M.length)
-        //     // console.log(day)
-
-        $('#example').DataTable({
-            "language": {
-                "processing": "處理中...",
-                "loadingRecords": "載入中...",
-                "lengthMenu": "顯示 _MENU_ 項結果",
-                "zeroRecords": "沒有符合的結果",
-                "info": "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
-                "infoEmpty": "顯示第 0 至 0 項結果，共 0 項",
-                "infoFiltered": "(從 _MAX_ 項結果中過濾)",
-                "infoPostFix": "",
-                "search": "搜尋:",
-                "paginate": {
-                    "first": "第一頁",
-                    "previous": "上一頁",
-                    "next": "下一頁",
-                    "last": "最後一頁"
-                },
-                "aria": {
-                    "sortAscending": ": 升冪排列",
-                    "sortDescending": ": 降冪排列"
-                }
-            },
-            "lengthMenu": [5, 10, 15, 20, 25, 30, 50, 100],
-        });
-    });
-</script>
+<script src="js/jquery.flexslider-min.js"></script>
 <script>
-    $("#keying").hide();
-    $("#day").on("change", function () {
-        var D1 = $("#day").val();
-        $("#day1").val(D1);
-        $("#day2").val(D1);
-        $("#day3").val(D1);
-        $("#day4").val(D1);
-    })
-    $("#password_bn").on("click", function () {
-        var PW = $("#password").val();
-        if (PW == "2097057") {
-            $("#keying").show();
-        } else {
-            $("#keying").hide();
+
+
+    //圖片預載
+    //$('.flexslider').flexslider();
+    $('.flexslider').flexslider({
+        animation: "slide",
+        slideshow: false,
+    });
+
+    loading();
+    //預先載入
+    function loading() {
+        $.get('https://spreadsheets.google.com/feeds/list/116iW5mkRf3Rgj_RPpE2vkAaQjOFjyVV-gl9fJIMtW5U/1/public/values?alt=json', function (data) {
+            console.log(data);
+            var message = [];
+            var M = data.feed.entry;
+            $("#msg").empty();
+            for (var i = 0, iMax = M.length; i < iMax; i++) { //全部資料
+                var obj = {};
+                var day = M[i].gsx$daytime.$t;
+                var name = M[i].gsx$name.$t;
+                var content = M[i].gsx$content.$t;
+                var key = M[i].gsx$key.$t;
+                var hide = M[i].gsx$hide.$t;
+                if (hide == 0) {
+                    html_msg = `<div class="row A-close" data-key="${key}">`
+                    //html_msg += `<span class="X-close" onclick="msg_del(${key})"></span>` //刪除(隱藏)
+                    html_msg += `<div class="cont">`
+                    html_msg += `<span>${name}　</span>`
+                    html_msg += `<span>${day}　</span>`
+                    html_msg += `<span>${key}</span>`
+                    html_msg += `<div>${content}</div>`
+                    // html_msg += `<div class="bn-del" data-del="${key}">刪除</div>`
+                    html_msg += `</div>`
+                    html_msg += `</div>`
+                    $("#msg").append(html_msg);
+                };
+            };
+        });
+    }
+
+    //刪除(隱藏)
+    function msg_del(d) {
+        var a = $(".A-close").eq(d - 1);
+        a.hide();
+    }
+
+    //寫入
+    function post_text() {
+        var name = $("#input_name").val();
+        var content = $("#input_content").val();
+        var Today = new Date();
+        var TodayDdata = `${(Today.getFullYear())}/${(Today.getMonth() + 1)}/${Today.getDate()} ${(Today.getHours() < 10 ? "0" + Today.getHours() : Today.getHours())}:${(Today.getMinutes() < 10 ? "0" + Today.getMinutes() : Today.getMinutes())}`;
+        var dayTime = TodayDdata;
+        $.get('https://spreadsheets.google.com/feeds/list/116iW5mkRf3Rgj_RPpE2vkAaQjOFjyVV-gl9fJIMtW5U/1/public/values?alt=json', function (data) {
+            var M = data.feed.entry;
+            var i = M.length;
+            var key = i + 1;
+            var hide = "0";
+            if (name != "") {
+                $.post("https://script.google.com/macros/s/AKfycbw-S3PA4MbT7khB-kCopufGGhwwrkE4qRTQRB5ycMpFcPsB0m0/exec", {
+                    "dayTime": dayTime,
+                    "key": key,
+                    "hide": hide,
+                    "name": name,
+                    "content": content,
+                });
+                setTimeout(function () {
+                    loading();
+                }, 1100);
+            } else {
+                alert("請輸入姓名!")
+            }
+        });
+    }
+
+
+    //下拉選單更新 text1
+    $("#select_gameNum").on("change", function () {
+        text1();
+    });
+    function text1() {
+        var select_val = $("#select_gameNum option:selected").val();
+        switch (select_val) {
+            case undefined:
+            case null:
+            case "":
+                $("#in_content_1").empty();
+                break;
+            case "1": //
+                html1 = `<table id="example1">`
+                html1 += `<thead>`
+                html1 += `<tr>`
+                html1 += `<th>起始日期</th>`
+                html1 += `<th>結束日期</th>`
+                html1 += `<th>序號</th>`
+                html1 += `<th>提供者</th>`
+                html1 += `</tr>`
+                html1 += `</thead>`
+                html1 += `<tbody id="content1">`
+                html1 += `<tr>`
+                html1 += `<td>Tiger Nixon</td>`
+                html1 += `<td>Edinburgh</td>`
+                html1 += `<td>61</td>`
+                html1 += `<td>61</td>`
+                html1 += `</tr>`
+                html1 += `</tbody>`
+                html1 += `</table>`
+                $("#in_content_1").append(html1);
+                $.get('https://spreadsheets.google.com/feeds/list/116iW5mkRf3Rgj_RPpE2vkAaQjOFjyVV-gl9fJIMtW5U/2/public/values?alt=json', function (data) {
+                    console.log(data);
+                    //console.log(JSON.stringify(data));
+                    var params1 = [];
+                    var M1 = data.feed.entry;
+                    $("#content1").empty();
+                    for (var i = 0, iMax = M1.length; i < iMax; i++) { //全部資料
+                        var obj = {};
+                        var starday = M1[i].gsx$starday.$t;
+                        var endday = M1[i].gsx$endday.$t;
+                        var sn = M1[i].gsx$sn.$t;
+                        var name = M1[i].gsx$name.$t;
+
+                        obj.starday = starday;
+                        obj.endday = endday;
+                        obj.sn = sn;
+                        obj.name = name;
+
+                        params1.push(obj);
+
+                        html = `<tr>`
+                        html += `<td>${starday}</td>`
+                        html += `<td>${endday}</td>`
+                        html += `<td>${sn}</td>`
+                        html += `<td>${name}</td>`
+                        html += `</tr>`
+                        $("#content1").append(html);
+                    };
+                    $('#example1').DataTable({
+                        "language": {
+                            "processing": "處理中...",
+                            "loadingRecords": "載入中...",
+                            "lengthMenu": "顯示 _MENU_ 項結果",
+                            "zeroRecords": "沒有符合的結果",
+                            "info": "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
+                            "infoEmpty": "顯示第 0 至 0 項結果，共 0 項",
+                            "infoFiltered": "(從 _MAX_ 項結果中過濾)",
+                            "infoPostFix": "",
+                            "search": "搜尋:",
+                            "paginate": {
+                                "first": "第一頁",
+                                "previous": "上一頁",
+                                "next": "下一頁",
+                                "last": "最後一頁"
+                            },
+                            "aria": {
+                                "sortAscending": ": 升冪排列",
+                                "sortDescending": ": 降冪排列"
+                            }
+                        },
+                        "lengthMenu": [5, 10, 15, 20, 25, 30, 50, 100],
+                    });
+                })
+                break;
+        }
+    };
+
+
+    //下拉選單更新 text2
+    $("#select_webNum").on("change", function () {
+        text2();
+    });
+    function text2() {
+        var select_val = $("#select_webNum option:selected").val();
+        switch (select_val) {
+            case undefined:
+            case null:
+            case "":
+                $("#in_content_2").empty();
+                break;
+            case "1": //
+                html1 = `<table id="example2">`
+                html1 += `<thead>`
+                html1 += `<tr>`
+                html1 += `<th>起始日期</th>`
+                html1 += `<th>結束日期</th>`
+                html1 += `<th>序號</th>`
+                html1 += `<th>活動名稱</th>`
+                html1 += `</tr>`
+                html1 += `</thead>`
+                html1 += `<tbody id="content2">`
+                html1 += `<tr>`
+                html1 += `<td>Tiger Nixon</td>`
+                html1 += `<td>Edinburgh</td>`
+                html1 += `<td>61</td>`
+                html1 += `<td>61</td>`
+                html1 += `</tr>`
+                html1 += `</tbody>`
+                html1 += `</table>`
+                $("#in_content_2").append(html1);
+                $.get('https://spreadsheets.google.com/feeds/list/116iW5mkRf3Rgj_RPpE2vkAaQjOFjyVV-gl9fJIMtW5U/3/public/values?alt=json', function (data) {
+                    console.log(data);
+                    //console.log(JSON.stringify(data));
+                    var params2 = [];
+                    var M2 = data.feed.entry;
+                    $("#content2").empty();
+                    for (var i = 0, iMax = M2.length; i < iMax; i++) { //全部資料
+                        var obj = {};
+                        var starday = M2[i].gsx$starday.$t;
+                        var endday = M2[i].gsx$endday.$t;
+                        var sn = M2[i].gsx$sn.$t;
+                        var name = M2[i].gsx$name.$t;
+
+                        obj.starday = starday;
+                        obj.endday = endday;
+                        obj.sn = sn;
+                        obj.name = name;
+
+                        params2.push(obj);
+
+                        // html = `<tr>`
+                        // html += `<td>${starday}</td>`
+                        // html += `<td>${endday}</td>`
+                        // html += `<td>${sn}</td>`
+                        // html += `<td>${name}</td>`
+                        // html += `</tr>`
+
+                        html = `<tr>`
+                        html += `<td>111111111</td>`
+                        html += `<td>2222222222</td>`
+                        html += `<td>33333333</td>`
+                        html += `<td>4444444444</td>`
+                        html += `</tr>`
+                        $("#content2").append(html);
+                    };
+                    $('#example2').DataTable({
+                        "language": {
+                            "processing": "處理中...",
+                            "loadingRecords": "載入中...",
+                            "lengthMenu": "顯示 _MENU_ 項結果",
+                            "zeroRecords": "沒有符合的結果",
+                            "info": "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
+                            "infoEmpty": "顯示第 0 至 0 項結果，共 0 項",
+                            "infoFiltered": "(從 _MAX_ 項結果中過濾)",
+                            "infoPostFix": "",
+                            "search": "搜尋:",
+                            "paginate": {
+                                "first": "第一頁",
+                                "previous": "上一頁",
+                                "next": "下一頁",
+                                "last": "最後一頁"
+                            },
+                            "aria": {
+                                "sortAscending": ": 升冪排列",
+                                "sortDescending": ": 降冪排列"
+                            }
+                        },
+                        "lengthMenu": [5, 10, 15, 20, 25, 30, 50, 100],
+                    });
+                })
+                break;
+        }
+    };
+
+    //下拉選單更新 text3
+    $("#select_Web").on("change", function () {
+        var select_val = $("#select_Web option:selected").val();
+        switch (select_val) {
+            case undefined:
+            case null:
+            case "":
+                $("#in_content_3").empty();
+                break;
+            case "1": //
+                // html0 = `<div class="title">`
+                // html0 += `<h3>活動：${name}</h3>`
+                // html0 += `</div>`
+                html0 = `<table id="example">`
+                html0 += `<thead>`
+                html0 += `<tr>`
+                html0 += `<th>日期</th>`
+                html0 += `<th>題目</th>`
+                html0 += `<th>答案</th>`
+                html0 += `</tr>`
+                html0 += `</thead>`
+                html0 += `<tbody id="content">`
+                html0 += `<tr>`
+                html0 += `<td>Tiger Nixon</td>`
+                html0 += `<td>Edinburgh</td>`
+                html0 += `<td>61</td>`
+                html0 += `</tr>`
+                html0 += `</tbody>`
+                html0 += `</table>`
+                $("#in_content_3").append(html0);
+                //https://script.google.com/macros/s/AKfycbw-S3PA4MbT7khB-kCopufGGhwwrkE4qRTQRB5ycMpFcPsB0m0/exec   api
+                $.get('https://spreadsheets.google.com/feeds/list/116iW5mkRf3Rgj_RPpE2vkAaQjOFjyVV-gl9fJIMtW5U/4/public/values?alt=json', function (data) {
+                    console.log(data);
+                    console.log(JSON.stringify(data));
+                    var params3 = [];
+
+                    var M3 = data.feed.entry;
+                    $("#content").empty();
+                    for (var i = 0, iMax = M3.length; i < iMax; i++) { //全部資料
+                        var obj = {};
+                        var day = M3[i].gsx$day.$t;
+                        var no = M3[i].gsx$no.$t;
+                        var theme = M3[i].gsx$theme.$t;
+                        var ans = M3[i].gsx$ans.$t;
+                        var name = M3[i].gsx$name.$t;
+
+                        obj.day = day;
+                        obj.no = no;
+                        obj.theme = theme;
+                        obj.ans = ans;
+                        obj.name = name;
+
+                        params3.push(obj);
+
+                        html = `<tr>`
+                        html += `<td>${day}</td>`
+                        // html += `<td>${no}</td>`
+                        html += `<td>${theme}</td>`
+                        html += `<td>${ans}</td>`
+                        html += `</tr>`
+                        $("#content").append(html);
+
+
+                    };
+                    $('#example').DataTable({
+                        "language": {
+                            "processing": "處理中...",
+                            "loadingRecords": "載入中...",
+                            "lengthMenu": "顯示 _MENU_ 項結果",
+                            "zeroRecords": "沒有符合的結果",
+                            "info": "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
+                            "infoEmpty": "顯示第 0 至 0 項結果，共 0 項",
+                            "infoFiltered": "(從 _MAX_ 項結果中過濾)",
+                            "infoPostFix": "",
+                            "search": "搜尋:",
+                            "paginate": {
+                                "first": "第一頁",
+                                "previous": "上一頁",
+                                "next": "下一頁",
+                                "last": "最後一頁"
+                            },
+                            "aria": {
+                                "sortAscending": ": 升冪排列",
+                                "sortDescending": ": 降冪排列"
+                            }
+                        },
+                        "lengthMenu": [5, 10, 15, 20, 25, 30, 50, 100],
+                    });
+                });
+                break;
+            case "2"://
+                break;
         };
     })
-    // $.ajax({
-    //     type: "post",
-    //     url: "https://script.google.com/macros/s/AKfycbw-S3PA4MbT7khB-kCopufGGhwwrkE4qRTQRB5ycMpFcPsB0m0/exec",
-    //     data: {
-    //         //"order_time": $("input[name=time]").val(),
-    //         "order_day" : "0555",
-    //         "order_no" : "999",
-    //         "order_theme" : "測試1",
-    //         "order_ans" : "測試答案"
-    //     },
-    //     success: function (response) {
-    //         if (response == "成功") {
-    //             alert("成功::::" + "no");
-    //         }
-    //     }
-    // });
+
     function link() {
         window.location.replace('https://docs.google.com/spreadsheets/d/116iW5mkRf3Rgj_RPpE2vkAaQjOFjyVV-gl9fJIMtW5U/edit#gid=0', '_blank');
     }
 
-    function post_theme() {
-        // setTimeout(function () {
-        //     $.post("https://script.google.com/macros/s/AKfycbw-S3PA4MbT7khB-kCopufGGhwwrkE4qRTQRB5ycMpFcPsB0m0/exec", {
-        //         "day": document.getElementById("day").value,
-        //         "no": document.getElementById("no").value,
-        //         "theme": document.getElementById("theme").value,
-        //         "ans": document.getElementById("ans").value,
-        //     });
-        // }, 100);
-        post_content()
-    }
-
-    function post_content() {
-        //for (var i = 1, iMax = 6; i < iMax; i++) {
-        //setTimeout(function () {
-        // $.post("https://script.google.com/macros/s/AKfycbw-S3PA4MbT7khB-kCopufGGhwwrkE4qRTQRB5ycMpFcPsB0m0/exec", {
-        //     "day": document.getElementById("day" + i + "").value,
-        //     "no": document.getElementById("no" + i + "").value,
-        //     "theme": document.getElementById("theme" + i + "").value,
-        //     "ans": document.getElementById("ans" + i + "").value,
-        // });
-        var day = $("#day").val();
-        var no = $("#no").val();
-        var theme = $("#theme").val();
-        var ans = $("#ans").val();
-
-        var day1 = $("#day1").val();
-        var no1 = $("#no1").val();
-        var theme1 = $("#theme1").val();
-        var ans1 = $("#ans1").val();
-
-        var day2 = $("#day2").val();
-        var no2 = $("#no2").val();
-        var theme2 = $("#theme2").val();
-        var ans2 = $("#ans2").val();
-
-        var day3 = $("#day3").val();
-        var no3 = $("#no3").val();
-        var theme3 = $("#theme3").val();
-        var ans3 = $("#ans3").val();
-
-        var day4 = $("#day4").val();
-        var no4 = $("#no4").val();
-        var theme4 = $("#theme4").val();
-        var ans4 = $("#ans4").val();
-        $.post("https://script.google.com/macros/s/AKfycbw-S3PA4MbT7khB-kCopufGGhwwrkE4qRTQRB5ycMpFcPsB0m0/exec", {
-            "day": day,
-            "no": no,
-            "theme": theme,
-            "ans": ans,
-        });
-        console.log("0：" + day + no + theme + ans)
-        setTimeout(function () {
-            $.post("https://script.google.com/macros/s/AKfycbw-S3PA4MbT7khB-kCopufGGhwwrkE4qRTQRB5ycMpFcPsB0m0/exec", {
-                "day": day1,
-                "no": no1,
-                "theme": theme1,
-                "ans": ans1,
-            });
-        }, 400);
-        console.log("1：" + day1 + no1 + theme1 + ans1)
-        setTimeout(function () {
-            $.post("https://script.google.com/macros/s/AKfycbw-S3PA4MbT7khB-kCopufGGhwwrkE4qRTQRB5ycMpFcPsB0m0/exec", {
-                "day": day2,
-                "no": no2,
-                "theme": theme2,
-                "ans": ans2,
-            });
-        }, 800);
-        console.log("2：" + day2 + no2 + theme2 + ans2)
-        setTimeout(function () {
-            $.post("https://script.google.com/macros/s/AKfycbw-S3PA4MbT7khB-kCopufGGhwwrkE4qRTQRB5ycMpFcPsB0m0/exec", {
-                "day": day3,
-                "no": no3,
-                "theme": theme3,
-                "ans": ans3,
-            });
-        }, 1200);
-        console.log("3：" + day3 + no3 + theme3 + ans3)
-        setTimeout(function () {
-            $.post("https://script.google.com/macros/s/AKfycbw-S3PA4MbT7khB-kCopufGGhwwrkE4qRTQRB5ycMpFcPsB0m0/exec", {
-                "day": day4,
-                "no": no4,
-                "theme": theme4,
-                "ans": ans4,
-            });
-        }, 1800);
-        console.log("4：" + day4 + no4 + theme4 + ans4)
-        setTimeout(function () {
-            alert("已成功送出!");
-            var day = $("#day").val("");
-            var no = $("#no").val("");
-            var theme = $("#theme").val("");
-            var ans = $("#ans").val("");
-
-            var day1 = $("#day1").val("");
-            var no1 = $("#no1").val("");
-            var theme1 = $("#theme1").val("");
-            var ans1 = $("#ans1").val("");
-
-            var day2 = $("#day2").val("");
-            var no2 = $("#no2").val("");
-            var theme2 = $("#theme2").val("");
-            var ans2 = $("#ans2").val("");
-
-            var day3 = $("#day3").val("");
-            var no3 = $("#no3").val("");
-            var theme3 = $("#theme3").val("");
-            var ans3 = $("#ans3").val("");
-
-            var day4 = $("#day4").val("");
-            var no4 = $("#no4").val("");
-            var theme4 = $("#theme4").val("");
-            var ans4 = $("#ans4").val("");
-        }, 1700);
-        //}, 100);
-        //};
-    }
-    var dt = new Date();
-    var MM = (dt.getMonth() + 1 < 10 ? '0' : '') + (dt.getMonth() + 1);
-    var dd = (dt.getDate() < 10 ? '0' : '') + dt.getDate();
-
-    var date = MM + dd;
-    date = date.toString("yyyy/MM/dd");
-
-    console.log(date)
-    setTimeout(function () {
-        switch (date) {
-            case undefined:
-            case null:
-            case NaN:
-                break;
-            case "0401":
-            case "0402":
-            case "0403":
-            case "0404":
-            case "0405":
-            case "0406":
-                //$("#example_filter>label>input").focus();
-                setTimeout(function () {
-                    $("#example_filter>label>input").val(date);
-                    var e = jQuery.Event("keyup");//模拟一个键盘事件
-                    e.keyCode = 8;//keyCode=8是空格
-                    $("#example_filter>label>input").trigger(e);//模拟按下空格键
-                }, 300);
-                break;
-        };
-    }, 500);
+    //textarrea自動增高
+    jQuery(function ($) {
+        $("textarea").css("overflow", "hidden").bind("keydown keyup", function () {
+            $(this).height('100px').height($(this).prop("scrollHeight") + "px");
+        }).keydown();
+    });  
 </script>
