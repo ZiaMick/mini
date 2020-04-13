@@ -272,10 +272,16 @@
             left: 4px;
         }
 
-        .dataTables_length {
+        /* .dataTables_length {
             text-align: center;
-        }
+        } */
 
+        .box {
+            border-radius: 10px;
+            border: 1px solid black;
+            margin: 10px;
+            padding: 20px;
+        }
     </style>
 </head>
 
@@ -294,10 +300,10 @@
             <option value="1">遊戲內序號</option>
         </select>
     </div>
-    <div id="in_content_1">
-
+    <div class="box" id="box1">
+        <div id="in_content_1">
+        </div>
     </div>
-
     <!-- test2 -->
     <div>
         活動序號：
@@ -306,9 +312,10 @@
             <option value="1">活動序號</option>
         </select>
     </div>
-    <div id="in_content_2">
+    <div class="box" id="box2">
+        <div id="in_content_2">
+        </div>
     </div>
-
     <!-- test3 -->
     <div>
         活動題目：
@@ -319,8 +326,9 @@
     </div>
 
     <!-- photo -->
-    <div id="in_content_3">
-        <!-- <div class="flexslider">
+    <div class="box" id="box3">
+        <div id="in_content_3">
+            <!-- <div class="flexslider">
             <ul class="slides">
                 <li>
                     <img src="A1.jpg" />
@@ -336,8 +344,8 @@
                 </li>
             </ul>
         </div> -->
+        </div>
     </div>
-
 
     <!-- message -->
     <div id="message" name="message">
@@ -459,6 +467,7 @@
         { "name": "國際版FB官方(馬來西亞)", "link": "https://www.facebook.com/groups/2088795834666143/" },
         { "name": "國際版FB官方(西班牙)", "link": "https://www.facebook.com/groups/1299423453542316/" },
         { "name": "國際版官網", "link": "http://www.miniworldgame.com/" },
+        { "name": "國際版wiki", "link": "https://miniworld.gamepedia.com/Mini_World_Wiki" },
         { "name": "4399迷你世界", "link": "http://news.4399.com/mnsj/" },
         { "name": "ifreesite顏色色碼", "link": "https://www.ifreesite.com/color/" }
     ];
@@ -474,6 +483,7 @@
     $("#select_gameNum").on("change", function () {
         text1();
     });
+    $("#box1").hide();
     function text1() {
         var select_val = $("#select_gameNum option:selected").val();
         switch (select_val) {
@@ -481,8 +491,10 @@
             case null:
             case "":
                 $("#in_content_1").empty();
+                $("#box1").hide();
                 break;
             case "1": //
+                $("#box1").show();
                 html1 = `<table id="example1">`
                 html1 += `<thead>`
                 html1 += `<tr>`
@@ -564,6 +576,7 @@
     $("#select_webNum").on("change", function () {
         text2();
     });
+    $("#box2").hide();
     function text2() {
         var select_val = $("#select_webNum option:selected").val();
         switch (select_val) {
@@ -571,8 +584,10 @@
             case null:
             case "":
                 $("#in_content_2").empty();
+                $("#box2").hide();
                 break;
             case "1": //
+                $("#box2").show();
                 html1 = `<table id="example2">`
                 html1 += `<thead>`
                 html1 += `<tr>`
@@ -650,6 +665,7 @@
     };
 
     //下拉選單更新 text3
+    $("#box3").hide();
     $("#select_Web").on("change", function () {
         var select_val = $("#select_Web option:selected").val();
         switch (select_val) {
@@ -657,8 +673,10 @@
             case null:
             case "":
                 $("#in_content_3").empty();
+                $("#box3").hide();
                 break;
             case "1": //
+                $("#box3").show();
                 // html0 = `<div class="title">`
                 // html0 += `<h3>活動：${name}</h3>`
                 // html0 += `</div>`
@@ -740,6 +758,7 @@
                 });
                 break;
             case "2"://
+                $("#box3").show();
                 break;
         };
     })
