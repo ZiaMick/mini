@@ -195,9 +195,11 @@
             padding: 10px 10px 10px 10px;
             margin: 15px 0px 0px 0px;
             border-radius: 5px;
-            background: gray;
+            background: rgb(218, 218, 218);
             word-break: break-all;
         }
+
+      
 
         .cont>span:nth-child(1) {
             font-size: 16px;
@@ -214,6 +216,16 @@
             opacity: 0.2;
             margin: -5px 5px 0 0;
         }
+
+        .cont>span:nth-child(1){
+            color: rgb(129, 113, 24);
+        }
+
+        .msg-contnet{
+            margin: 5px 0 0 0;
+            color: rgb(63, 54, 14);
+            letter-spacing: 0.1em;
+        }       
 
         .title {
             text-align: center;
@@ -282,6 +294,8 @@
             margin: 10px;
             padding: 20px;
         }
+
+        
     </style>
 </head>
 
@@ -351,7 +365,7 @@
     <div id="message" name="message">
         <div id="msg" class="flex">
 
-            <div class="row right">
+            <div class="row">
                 <div class="cont">
                     <span>Name</span>
                     <span>202020</span>
@@ -416,7 +430,7 @@
                     html_msg += `<span>${name}　</span>`
                     html_msg += `<span>${day}　</span>`
                     html_msg += `<span>${key}</span>`
-                    html_msg += `<div>${content}</div>`
+                    html_msg += `<div class="msg-contnet">${content}</div>`
                     // html_msg += `<div class="bn-del" data-del="${key}">刪除</div>`
                     html_msg += `</div>`
                     html_msg += `</div>`
