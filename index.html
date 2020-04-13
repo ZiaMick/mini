@@ -12,8 +12,30 @@
 
     <style>
         body {
-            margin: 0px;
+            margin: 20px 0 0 0;
             padding: 0px;
+            /* background: -webkit-linear-gradient(left top, yellow, red);
+            background: -o-linear-gradient(bottom right, yellow, red);
+            background: -moz-linear-gradient(bottom right, yellow, red); */
+            /* background: linear-gradient(to bottom right, #639ed6, #fff); */
+        }
+
+        body>div {
+            margin: 5px 0 5px 0;
+        }
+
+        body>div:nth-child(1),
+        body>div:nth-child(2),
+        body>div:nth-child(3),
+        body>div:nth-child(4),
+        body>div:nth-child(6),
+        body>div:nth-child(8)>div:nth-child(2),
+        body>div:nth-child(8)>div:nth-child(2)>ul .bn {
+            text-align: center;
+        }
+
+        body>div:nth-last-child() {
+            margin: 0;
         }
 
         select {
@@ -40,12 +62,42 @@
         }
 
         #message>div>ul {
-            padding-inline-start: 20px;
+            padding-inline-start: 0px;
             margin: 0;
+            height: 400px;
         }
 
         #message>div>ul>li {
             list-style: none;
+        }
+
+        #message>div>ul>li:nth-child(3) {
+            background: red;
+
+        }
+
+        #message>div:nth-child(2)>ul>button {
+            width: 265px;
+            line-height: 30px;
+            text-align: center;
+            font-weight: bold;
+            background: #428bca;
+            color: #fff;
+            border-radius: 5px;
+            border: 0px solid #357ebd;
+            cursor: pointer
+        }
+
+        #in_content_1 {
+            /* background: skyblue; */
+        }
+
+        #in_content_2 {
+            /* background: skyblue; */
+        }
+
+        #in_content_3 {
+            /* background: skyblue; */
         }
 
         #content>tr>td,
@@ -57,13 +109,13 @@
         #content>.odd,
         #content1>.odd,
         #content2>.odd {
-            background: #f9f9f9;
+            background-color: rgba(248, 248, 248, 0.918);
         }
 
         #content>.odd:nth-child(1),
         #content1>.odd:nth-child(1),
         #content2>.odd:nth-child(1) {
-            background: #f0f0f0;
+            /* background: #f0f0f0; */
         }
 
         #content>.odd:hover,
@@ -72,7 +124,7 @@
         .even:hover,
         #content2>.odd:hover,
         .even:hover {
-            background: #cfcfcf;
+            /* background: #cfcfcf; */
         }
 
         #example,
@@ -83,7 +135,7 @@
 
         #message {
             /* width: 300px; */
-            background: rgb(204, 204, 204);
+            /* background: rgb(204, 204, 204); */
         }
 
         .day {
@@ -117,6 +169,8 @@
         }
 
         .flex {
+            display: flex;
+            justify-content: center;
             width: 100%;
             max-height: 300px;
             overflow-y: scroll;
@@ -125,7 +179,7 @@
         .input {
             width: 100%;
             max-height: 300px;
-            background: slategray;
+            /* background: slategray; */
         }
 
         .right {
@@ -137,16 +191,12 @@
         }
 
         .cont {
-            max-width: 320px;
+            max-width: 245px;
             padding: 10px 10px 10px 10px;
-            margin: 15px;
+            margin: 15px 0px 0px 0px;
             border-radius: 5px;
             background: gray;
             word-break: break-all;
-        }
-
-        .right>.cont {
-            background: teal;
         }
 
         .cont>span:nth-child(1) {
@@ -172,11 +222,13 @@
         .bn {
             text-align: center;
             line-height: 30px;
-            width: 265px;
+            /* width: calc(100% - 50px); */
+            /* max-width: 280px; */
+            max-width: 280px;
             height: 30px;
             border-radius: 5px;
             background: tan;
-            margin: 5px 0 5px 0;
+            margin: 5px 0px 5px 25px;
         }
 
         .bn:hover {
@@ -200,7 +252,7 @@
             position: relative;
             width: 20px;
             height: 20px;
-            float: right;
+            /* float: right; */
             margin: 0 25px 0 0px;
             border-radius: 0 0 5px 5px;
             background: tomato;
@@ -219,6 +271,11 @@
             position: absolute;
             left: 4px;
         }
+
+        .dataTables_length {
+            text-align: center;
+        }
+
     </style>
 </head>
 
@@ -233,7 +290,7 @@
     <div>
         遊戲序號：
         <select name="select_gameNum" id="select_gameNum">
-            <option value="">請選擇</option>
+            <option value="">請選擇/關閉</option>
             <option value="1">遊戲內序號</option>
         </select>
     </div>
@@ -245,7 +302,7 @@
     <div>
         活動序號：
         <select name="select_webNum" id="select_webNum">
-            <option value="">請選擇</option>
+            <option value="">請選擇/關閉</option>
             <option value="1">活動序號</option>
         </select>
     </div>
@@ -256,7 +313,7 @@
     <div>
         活動題目：
         <select name="select_Web" id="select_Web">
-            <option value="">請選擇</option>
+            <option value="">請選擇/關閉</option>
             <option value="1">雪豹知多少</option>
         </select>
     </div>
@@ -300,8 +357,12 @@
             <ul>
                 <li><br>姓名：<br><input type="text" id="input_name"></li>
                 <li>內容：<br><textarea name="input_content" id="input_content"></textarea></li>
+                <!-- <li onclick="post_text()">送出</li> -->
+                <button>送出</button>
+                <!-- <li>
                 <div class="bn" onclick="post_text()">送出</div>
                 <div style="height: 10px;"></div>
+            </li> -->
             </ul>
         </div>
     </div>
@@ -397,7 +458,7 @@
         { "name": "國際版FB官方(英文)", "link": "https://www.facebook.com/miniworldtech/" },
         { "name": "國際版FB官方(馬來西亞)", "link": "https://www.facebook.com/groups/2088795834666143/" },
         { "name": "國際版FB官方(西班牙)", "link": "https://www.facebook.com/groups/1299423453542316/" },
-        { "name": "國際版官網", "link": "www.miniworldgame.com" },
+        { "name": "國際版官網", "link": "http://www.miniworldgame.com/" },
         { "name": "4399迷你世界", "link": "http://news.4399.com/mnsj/" },
         { "name": "ifreesite顏色色碼", "link": "https://www.ifreesite.com/color/" }
     ];
@@ -428,14 +489,14 @@
                 html1 += `<th>起始日期</th>`
                 html1 += `<th>結束日期</th>`
                 html1 += `<th>序號</th>`
-                html1 += `<th>分享</th>`
+                // html1 += `<th>分享</th>`
                 html1 += `</tr>`
                 html1 += `</thead>`
                 html1 += `<tbody id="content1">`
                 html1 += `<tr>`
                 html1 += `<td>Tiger Nixon</td>`
                 html1 += `<td>Edinburgh</td>`
-                html1 += `<td>61</td>`
+                // html1 += `<td>61</td>`
                 html1 += `<td>61</td>`
                 html1 += `</tr>`
                 html1 += `</tbody>`
@@ -452,20 +513,20 @@
                         var starday = M1[i].gsx$starday.$t;
                         var endday = M1[i].gsx$endday.$t;
                         var sn = M1[i].gsx$sn.$t;
-                        var name = M1[i].gsx$name.$t;
+                        // var name = M1[i].gsx$name.$t;
 
                         obj.starday = starday;
                         obj.endday = endday;
                         obj.sn = sn;
-                        obj.name = name;
+                        // obj.name = name;
 
                         params1.push(obj);
 
                         html = `<tr>`
-                        html += `<td>${starday}</td>`
+                        html += `<td >${starday}</td>`
                         html += `<td>${endday}</td>`
                         html += `<td>${sn}</td>`
-                        html += `<td>${name}</td>`
+                        // html += `<td>${name}</td>`
                         html += `</tr>`
                         $("#content1").append(html);
                     };
@@ -473,13 +534,13 @@
                         "language": {
                             "processing": "處理中...",
                             "loadingRecords": "載入中...",
-                            "lengthMenu": "顯　　示 _MENU_ 項結果",
+                            "lengthMenu": "顯示筆數： _MENU_ ",
                             "zeroRecords": "沒有符合的結果",
                             "info": "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
                             "infoEmpty": "顯示第 0 至 0 項結果，共 0 項",
                             "infoFiltered": "(從 _MAX_ 項結果中過濾)",
                             "infoPostFix": "",
-                            "search": "搜尋:",
+                            "search": "搜　　尋：",
                             "paginate": {
                                 "first": "第一頁",
                                 "previous": "上一頁",
@@ -563,13 +624,13 @@
                         "language": {
                             "processing": "處理中...",
                             "loadingRecords": "載入中...",
-                            "lengthMenu": "顯　　示 _MENU_ 項結果",
+                            "lengthMenu": "顯示筆數： _MENU_ ",
                             "zeroRecords": "沒有符合的結果",
                             "info": "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
                             "infoEmpty": "顯示第 0 至 0 項結果，共 0 項",
                             "infoFiltered": "(從 _MAX_ 項結果中過濾)",
                             "infoPostFix": "",
-                            "search": "搜尋:",
+                            "search": "搜　　尋：",
                             "paginate": {
                                 "first": "第一頁",
                                 "previous": "上一頁",
@@ -656,13 +717,13 @@
                         "language": {
                             "processing": "處理中...",
                             "loadingRecords": "載入中...",
-                            "lengthMenu": "顯　　示 _MENU_ 項結果",
+                            "lengthMenu": "顯示筆數： _MENU_ ",
                             "zeroRecords": "沒有符合的結果",
                             "info": "顯示第 _START_ 至 _END_ 項結果，共 _TOTAL_ 項",
                             "infoEmpty": "顯示第 0 至 0 項結果，共 0 項",
                             "infoFiltered": "(從 _MAX_ 項結果中過濾)",
                             "infoPostFix": "",
-                            "search": "搜尋:",
+                            "search": "搜　　尋：",
                             "paginate": {
                                 "first": "第一頁",
                                 "previous": "上一頁",
