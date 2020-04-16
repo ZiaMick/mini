@@ -177,7 +177,7 @@
         }
 
         .flex {
-            
+
             width: 265px;
             max-height: 300px;
             overflow-y: scroll;
@@ -404,8 +404,6 @@
 <script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
 <script src="js/jquery.flexslider-min.js"></script>
 <script>
-
-
     //圖片預載
     //$('.flexslider').flexslider();
     $('.flexslider').flexslider({
@@ -442,8 +440,13 @@
                     $("#msg").append(html_msg);
                 };
             };
+            var scrollHeight = $('#msg').prop("scrollHeight");
+            $('#msg').scrollTop(scrollHeight, 200);
         });
+
     }
+
+
 
     //刪除(隱藏)
     function msg_del(d) {
@@ -791,5 +794,12 @@
         $("textarea").css("overflow", "hidden").bind("keydown keyup", function () {
             $(this).height('100px').height($(this).prop("scrollHeight") + "px");
         }).keydown();
-    });  
+    });
+
+    //移動到最底部
+
+    $("#msg").click(function () {
+        var scrollHeight = $('#msg').prop("scrollHeight");
+        $('#msg').scrollTop(scrollHeight, 200);
+    });
 </script>
