@@ -6,10 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>mini</title>
     <link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css' rel='stylesheet'>
-    </link>
     <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="css/flexslider.css" type="text/css">
-
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;200;300;400&display=swap" rel="stylesheet"> -->
     <style>
         body {
             margin: 20px 0 0 0;
@@ -18,6 +17,8 @@
             justify-content: center;
             flex-direction: column;
             align-content: center;
+            /* font-family: 'Noto Sans TC', sans-serif;
+            font-weight: 200; */
             /* background: -webkit-linear-gradient(left top, yellow, red);
             background: -o-linear-gradient(bottom right, yellow, red);
             background: -moz-linear-gradient(bottom right, yellow, red); */
@@ -271,18 +272,19 @@
             position: relative;
             width: 20px;
             height: 20px;
-            /* float: right; */
-            margin: 0 25px 0 0px;
+            float: right;
+            margin: 0 10px 0 0px;
             border-radius: 0 0 5px 5px;
-            background: tomato;
-            transition: all .5s;
-            -moz-transition: all .5s;
-            -webkit-transition: all .5s;
-            -o-transition: all .5s;
+            background: rgb(204, 204, 204);
+            transition: all .2s;
+            -moz-transition: all .2s;
+            -webkit-transition: all .2s;
+            -o-transition: all .2s;
         }
 
         .X-close:hover {
-            background: red;
+            color: white;
+            background: rgb(255, 12, 12);
         }
 
         .X-close::before {
@@ -385,7 +387,7 @@
                 <li><br>姓名：<br><input type="text" id="input_name"></li>
                 <li>內容：<br><textarea name="input_content" id="input_content"></textarea></li>
                 <!-- <li onclick="post_text()">送出</li> -->
-                <button>送出</button>
+                <button onclick="post_text()">送出</button>
                 <!-- <li>
                 <div class="bn" onclick="post_text()">送出</div>
                 <div style="height: 10px;"></div>
@@ -404,6 +406,8 @@
 <script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
 <script src="js/jquery.flexslider-min.js"></script>
 <script>
+
+
     //圖片預載
     //$('.flexslider').flexslider();
     $('.flexslider').flexslider({
@@ -426,18 +430,36 @@
                 var content = M[i].gsx$content.$t;
                 var key = M[i].gsx$key.$t;
                 var hide = M[i].gsx$hide.$t;
-                if (hide == 0) {
-                    html_msg = `<div class="row A-close" data-key="${key}">`
-                    //html_msg += `<span class="X-close" onclick="msg_del(${key})"></span>` //刪除(隱藏)
-                    html_msg += `<div class="cont">`
-                    html_msg += `<span>${name}　</span>`
-                    html_msg += `<span>${day}　</span>`
-                    html_msg += `<span>${key}</span>`
-                    html_msg += `<div class="msg-contnet">${content}</div>`
-                    // html_msg += `<div class="bn-del" data-del="${key}">刪除</div>`
-                    html_msg += `</div>`
-                    html_msg += `</div>`
-                    $("#msg").append(html_msg);
+
+                var input_name = $("#input_name").val();
+
+                if (hide == "") {
+                    if (name == input_name) {
+                        html_msg = `<div class="row A-close" data-key="${key}">`
+                        html_msg += `<span class="X-close" onclick="msg_del(${key})"></span>` //刪除(隱藏)
+                        html_msg += `<div class="cont">`
+                        html_msg += `<span>${name}　</span>`
+                        html_msg += `<span>${day}　</span>`
+                        html_msg += `<span>${key}</span>`
+                        html_msg += `<div class="msg-contnet">${content}</div>`
+                        // html_msg += `<div class="bn-del" data-del="${key}">刪除</div>`
+                        html_msg += `</div>`
+                        html_msg += `</div>`
+                        $("#msg").append(html_msg);
+                    }else{
+                        html_msg = `<div class="row A-close" data-key="${key}">`
+                        //html_msg += `<span class="X-close" onclick="msg_del(${key})"></span>` //刪除(隱藏)
+                        html_msg += `<div class="cont">`
+                        html_msg += `<span>${name}　</span>`
+                        html_msg += `<span>${day}　</span>`
+                        html_msg += `<span>${key}</span>`
+                        html_msg += `<div class="msg-contnet">${content}</div>`
+                        // html_msg += `<div class="bn-del" data-del="${key}">刪除</div>`
+                        html_msg += `</div>`
+                        html_msg += `</div>`
+                        $("#msg").append(html_msg);
+                    }
+
                 };
             };
             var scrollHeight = $('#msg').prop("scrollHeight");
@@ -450,9 +472,30 @@
 
     //刪除(隱藏)
     function msg_del(d) {
-        var a = $(".A-close").eq(d - 1);
-        a.hide();
+        var a = $(".A-close").attr("data-key");
+        $(".A-close[data-key=" + d + "]").hide();
+        updateStatus(d);
     }
+    function updateStatus(data) {
+        $.ajax({
+            type: "POST",
+            url: "https://script.google.com/macros/s/AKfycbw-S3PA4MbT7khB-kCopufGGhwwrkE4qRTQRB5ycMpFcPsB0m0/exec",
+            data: {
+                num: data + 1
+            },
+            dataType: "JSON",
+            // success: function (response) {
+            //     console.log(response)
+            //     if (response === 'success') {
+            //         alert("成功")
+            //     } else {
+            //         alert('更新失敗！');
+            //     }
+            // }
+        });
+    }
+
+
 
     //寫入
     function post_text() {
@@ -465,7 +508,7 @@
             var M = data.feed.entry;
             var i = M.length;
             var key = i + 1;
-            var hide = "0";
+            var hide = "";
             if (name != "") {
                 $.post("https://script.google.com/macros/s/AKfycbw-S3PA4MbT7khB-kCopufGGhwwrkE4qRTQRB5ycMpFcPsB0m0/exec", {
                     "dayTime": dayTime,
@@ -491,7 +534,8 @@
         { "name": "國際版官網", "link": "http://www.miniworldgame.com/" },
         { "name": "國際版wiki", "link": "https://miniworld.gamepedia.com/Mini_World_Wiki" },
         { "name": "4399迷你世界", "link": "http://news.4399.com/mnsj/" },
-        { "name": "ifreesite顏色色碼", "link": "https://www.ifreesite.com/color/" }
+        { "name": "ifreesite顏色色碼", "link": "https://www.ifreesite.com/color/" },
+        { "name": "Google Excel", "link": "https://docs.google.com/spreadsheets/d/116iW5mkRf3Rgj_RPpE2vkAaQjOFjyVV-gl9fJIMtW5U/edit#gid=1443745878" },
     ];
     $("#web_link").empty().append(`<option value="">請選擇</option>`);
     for (var i = 0, iMax = link_data.length; i < iMax; i++) {
