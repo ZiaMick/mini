@@ -30,8 +30,8 @@
         body>div:nth-child(3),
         body>div:nth-child(4),
         body>div:nth-child(6),
-        body>div:nth-child(8)>div:nth-child(2),
-        body>div:nth-child(8)>div:nth-child(2)>ul .bn {
+        body>div:nth-child(8)>div:nth-child(3),
+        body>div:nth-child(8)>div:nth-child(3)>ul .bn {
             text-align: center;
         }
 
@@ -72,12 +72,11 @@
             list-style: none;
         }
 
-        #message>div>ul>li:nth-child(3) {
+        /* #message>div>ul>li:nth-child(3) {
             background: red;
+        } */
 
-        }
-
-        #message>div:nth-child(2)>ul>button {
+        #message>div:nth-child(3)>ul>button {
             width: 265px;
             line-height: 30px;
             text-align: center;
@@ -86,7 +85,16 @@
             color: #fff;
             border-radius: 5px;
             border: 0px solid #357ebd;
-            cursor: pointer
+            cursor: pointer;
+            
+        }
+
+        #message>div:nth-child(3)>ul>button:hover {
+            background: #13558f;
+            transition: all .3s;
+            -moz-transition: all .3s;
+            -webkit-transition: all .3s;
+            -o-transition: all .3s;
         }
 
         #in_content_1 {
@@ -172,7 +180,6 @@
         }
 
         .flex {
-
             width: 265px;
             max-height: 300px;
             overflow-y: scroll;
@@ -370,13 +377,14 @@
 
     <!-- message -->
     <div id="message" name="message">
+        <div style="text-align: center;">最新消息</div>
         <div id="msg" class="flex">
 
             <div class="row">
                 <div class="cont">
                     <span>Name</span>
-                    <span>202020</span>
-                    <div>akjf;akjf;kasjf;sad1111111111111111111111112222222222222221111111111111111111111111f</div>
+                    <span>20200422</span>
+                    <div></div>
                 </div>
             </div>
 
@@ -514,7 +522,7 @@
                 });
                 setTimeout(function () {
                     loading();
-                }, 1100);
+                }, 1200);
             } else {
                 alert("請輸入姓名!")
             }
@@ -530,7 +538,7 @@
         { "name": "國際版wiki", "link": "https://miniworld.gamepedia.com/Mini_World_Wiki" },
         { "name": "4399迷你世界", "link": "http://news.4399.com/mnsj/" },
         { "name": "ifreesite顏色色碼", "link": "https://www.ifreesite.com/color/" },
-        { "name": "Google Sheet Excel", "link": "https://docs.google.com/spreadsheets/d/116iW5mkRf3Rgj_RPpE2vkAaQjOFjyVV-gl9fJIMtW5U/edit#gid=1443745878" },
+        { "name": "Google Excel資料管理", "link": "https://docs.google.com/spreadsheets/d/116iW5mkRf3Rgj_RPpE2vkAaQjOFjyVV-gl9fJIMtW5U/edit#gid=1443745878" },
     ];
     $("#web_link").empty().append(`<option value="">請選擇</option>`);
     for (var i = 0, iMax = link_data.length; i < iMax; i++) {
