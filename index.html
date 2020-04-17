@@ -19,10 +19,6 @@
             align-content: center;
             /* font-family: 'Noto Sans TC', sans-serif;
             font-weight: 200; */
-            /* background: -webkit-linear-gradient(left top, yellow, red);
-            background: -o-linear-gradient(bottom right, yellow, red);
-            background: -moz-linear-gradient(bottom right, yellow, red); */
-            /* background: linear-gradient(to bottom right, #639ed6, #fff); */
         }
 
         body>div {
@@ -143,8 +139,6 @@
             justify-content: center;
             flex-direction: column;
             margin: 0 auto;
-            /* width: 300px; */
-            /* background: rgb(204, 204, 204); */
         }
 
         .day {
@@ -187,7 +181,6 @@
         .input {
             width: 100%;
             max-height: 300px;
-            /* background: slategray; */
         }
 
         .right {
@@ -206,8 +199,6 @@
             background: rgb(218, 218, 218);
             word-break: break-all;
         }
-
-
 
         .cont>span:nth-child(1) {
             font-size: 16px;
@@ -242,8 +233,6 @@
         .bn {
             text-align: center;
             line-height: 30px;
-            /* width: calc(100% - 50px); */
-            /* max-width: 280px; */
             max-width: 280px;
             height: 30px;
             border-radius: 5px;
@@ -268,7 +257,8 @@
             background: silver;
         }
 
-        .X-close {
+        .X-close,
+        .Dt-close {
             position: relative;
             width: 20px;
             height: 20px;
@@ -282,20 +272,30 @@
             -o-transition: all .2s;
         }
 
-        .X-close:hover {
+        .Dt-close {
+            width: 30px;
+            height: 30px;
+            top: -20px;
+            left: 5px;
+        }
+
+        .X-close:hover,
+        .Dt-close:hover {
             color: white;
             background: rgb(255, 12, 12);
         }
 
-        .X-close::before {
+        .X-close:before,
+        .Dt-close:before {
             content: "X" !important;
             position: absolute;
             left: 4px;
         }
 
-        /* .dataTables_length {
-            text-align: center;
-        } */
+        .Dt-close:before {
+            top: 5px;
+            left: 9px;
+        }
 
         .box {
             border-radius: 10px;
@@ -317,7 +317,7 @@
     <div>
         遊戲序號：
         <select name="select_gameNum" id="select_gameNum">
-            <option value="">請選擇/關閉</option>
+            <option value="0">請選擇/關閉</option>
             <option value="1">遊戲內序號</option>
         </select>
     </div>
@@ -329,7 +329,7 @@
     <div>
         活動序號：
         <select name="select_webNum" id="select_webNum">
-            <option value="">請選擇/關閉</option>
+            <option value="0">請選擇/關閉</option>
             <option value="1">活動序號</option>
         </select>
     </div>
@@ -341,7 +341,7 @@
     <div>
         活動題目：
         <select name="select_Web" id="select_Web">
-            <option value="">請選擇/關閉</option>
+            <option value="0">請選擇/關閉</option>
             <option value="1">雪豹知多少</option>
         </select>
     </div>
@@ -386,12 +386,7 @@
             <ul>
                 <li><br>姓名：<br><input type="text" id="input_name"></li>
                 <li>內容：<br><textarea name="input_content" id="input_content"></textarea></li>
-                <!-- <li onclick="post_text()">送出</li> -->
                 <button onclick="post_text()">送出</button>
-                <!-- <li>
-                <div class="bn" onclick="post_text()">送出</div>
-                <div style="height: 10px;"></div>
-            </li> -->
             </ul>
         </div>
     </div>
@@ -446,7 +441,7 @@
                         html_msg += `</div>`
                         html_msg += `</div>`
                         $("#msg").append(html_msg);
-                    }else{
+                    } else {
                         html_msg = `<div class="row A-close" data-key="${key}">`
                         //html_msg += `<span class="X-close" onclick="msg_del(${key})"></span>` //刪除(隱藏)
                         html_msg += `<div class="cont">`
@@ -535,7 +530,7 @@
         { "name": "國際版wiki", "link": "https://miniworld.gamepedia.com/Mini_World_Wiki" },
         { "name": "4399迷你世界", "link": "http://news.4399.com/mnsj/" },
         { "name": "ifreesite顏色色碼", "link": "https://www.ifreesite.com/color/" },
-        { "name": "Google Excel", "link": "https://docs.google.com/spreadsheets/d/116iW5mkRf3Rgj_RPpE2vkAaQjOFjyVV-gl9fJIMtW5U/edit#gid=1443745878" },
+        { "name": "Google Sheet Excel", "link": "https://docs.google.com/spreadsheets/d/116iW5mkRf3Rgj_RPpE2vkAaQjOFjyVV-gl9fJIMtW5U/edit#gid=1443745878" },
     ];
     $("#web_link").empty().append(`<option value="">請選擇</option>`);
     for (var i = 0, iMax = link_data.length; i < iMax; i++) {
@@ -559,9 +554,10 @@
                 $("#in_content_1").empty();
                 $("#box1").hide();
                 break;
-            case "1": //
+            case "1": // 
                 $("#box1").show();
-                html1 = `<table id="example1">`
+                html1 = `<span class="Dt-close" id="text1"></span>`
+                html1 += `<table id="example1">`
                 html1 += `<thead>`
                 html1 += `<tr>`
                 html1 += `<th>起始日期</th>`
@@ -581,8 +577,6 @@
                 html1 += `</table>`
                 $("#in_content_1").append(html1);
                 $.get('https://spreadsheets.google.com/feeds/list/116iW5mkRf3Rgj_RPpE2vkAaQjOFjyVV-gl9fJIMtW5U/2/public/values?alt=json', function (data) {
-                    console.log(data);
-                    //console.log(JSON.stringify(data));
                     var params1 = [];
                     var M1 = data.feed.entry;
                     $("#content1").empty();
@@ -633,6 +627,13 @@
                         "lengthMenu": [5, 10, 15, 20, 25, 30, 50, 100],
                     });
                 })
+
+                //關閉第1個
+                $("#text1").on("click", function () {
+                    $("#select_gameNum").val('0');
+                    $("#in_content_1").empty();
+                    $("#box1").hide();
+                })
                 break;
         }
     };
@@ -654,7 +655,8 @@
                 break;
             case "1": //
                 $("#box2").show();
-                html1 = `<table id="example2">`
+                html1 = `<span class="Dt-close" id="text2"></span>`
+                html1 += `<table id="example2">`
                 html1 += `<thead>`
                 html1 += `<tr>`
                 html1 += `<th>起始日期</th>`
@@ -674,8 +676,6 @@
                 html1 += `</table>`
                 $("#in_content_2").append(html1);
                 $.get('https://spreadsheets.google.com/feeds/list/116iW5mkRf3Rgj_RPpE2vkAaQjOFjyVV-gl9fJIMtW5U/3/public/values?alt=json', function (data) {
-                    console.log(data);
-                    //console.log(JSON.stringify(data));
                     var params2 = [];
                     var M2 = data.feed.entry;
                     $("#content2").empty();
@@ -726,6 +726,13 @@
                         "lengthMenu": [5, 10, 15, 20, 25, 30, 50, 100],
                     });
                 })
+
+                //關閉第2個
+                $("#text2").on("click", function () {
+                    $("#select_webNum").val('0');
+                    $("#in_content_2").empty();
+                    $("#box2").hide();
+                })
                 break;
         }
     };
@@ -746,7 +753,8 @@
                 // html0 = `<div class="title">`
                 // html0 += `<h3>活動：${name}</h3>`
                 // html0 += `</div>`
-                html0 = `<table id="example">`
+                html0 = `<span class="Dt-close" id="text3"></span>`
+                html0 += `<table id="example">`
                 html0 += `<thead>`
                 html0 += `<tr>`
                 html0 += `<th>日期</th>`
@@ -822,16 +830,20 @@
                         "lengthMenu": [5, 10, 15, 20, 25, 30, 50, 100],
                     });
                 });
+
+                //關閉第3個
+                $("#text3").on("click", function () {
+                    $("#select_Web").val('0');
+                    $("#in_content_3").empty();
+                    $("#box3").hide();
+                })
+                break;
                 break;
             case "2"://
                 $("#box3").show();
                 break;
         };
     })
-
-    // function link() {
-    //     window.location.replace('https://docs.google.com/spreadsheets/d/116iW5mkRf3Rgj_RPpE2vkAaQjOFjyVV-gl9fJIMtW5U/edit#gid=0', '_blank');
-    // }
 
     //textarrea自動增高
     jQuery(function ($) {
@@ -841,7 +853,6 @@
     });
 
     //移動到最底部
-
     $("#msg").click(function () {
         var scrollHeight = $('#msg').prop("scrollHeight");
         $('#msg').scrollTop(scrollHeight, 200);
