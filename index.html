@@ -8,7 +8,8 @@
     <link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css' rel='stylesheet'>
     <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="css/flexslider.css" type="text/css">
-    <!-- <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;200;300;400&display=swap" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;200;300;400&display=swap"
+        rel="stylesheet">
     <style>
         body {
             margin: 20px 0 0 0;
@@ -29,14 +30,22 @@
         body>div:nth-child(2),
         body>div:nth-child(3),
         body>div:nth-child(4),
+        body>div:nth-child(5),
         body>div:nth-child(6),
-        body>div:nth-child(8)>div:nth-child(3),
-        body>div:nth-child(8)>div:nth-child(3)>ul .bn {
+        body>div:nth-child(7),
+        body>div:nth-child(8),
+        body>div:nth-child(9)>div:nth-child(3),
+        body>div:nth-child(9)>div:nth-child(3)>ul .bn {
             text-align: center;
         }
 
         body>div:nth-last-child() {
             margin: 0;
+        }
+
+        h2 {
+            font-family: 'Noto Sans TC', sans-serif;
+            font-weight: 600;
         }
 
         select {
@@ -314,6 +323,9 @@
 </head>
 
 <body>
+    <div>
+        <h2>迷你第一幼稚園</h2>
+    </div>
     <!-- link -->
     <div>
         相關連接：
@@ -353,6 +365,12 @@
         </select>
     </div>
 
+    <div>
+        代理伺服：
+        <select name="select_proxy" id="select_proxy"
+            onchange="window.open(this.options[this.selectedIndex].value)"></select>
+    </div>
+
     <!-- photo -->
     <div class="box" id="box3">
         <div id="in_content_3">
@@ -377,7 +395,7 @@
 
     <!-- message -->
     <div id="message" name="message">
-        <div style="text-align: center;">最新消息</div>
+        <div style="text-align: center; margin: 5px 0 10px 0;">最新消息</div>
         <div id="msg" class="flex">
 
             <div class="row">
@@ -538,9 +556,6 @@
         { "name": "國際版wiki", "link": "https://miniworld.gamepedia.com/Mini_World_Wiki" },
         { "name": "4399迷你世界", "link": "http://news.4399.com/mnsj/" },
         { "name": "ifreesite顏色色碼", "link": "https://www.ifreesite.com/color/" },
-        { "name": "代理伺服器：NewIPNow不建議只剩2個IP可使用", "link": "http://www.newipnow.com/" },
-        { "name": "代理伺服器：proxysite", "link": "http://proxysite.com/" },
-        { "name": "代理伺服器：4EYERPROXY", "link": "http://4everproxy.com/" },
         { "name": "Google Excel資料管理", "link": "https://docs.google.com/spreadsheets/d/116iW5mkRf3Rgj_RPpE2vkAaQjOFjyVV-gl9fJIMtW5U/edit#gid=1443745878" },
     ];
     $("#web_link").empty().append(`<option value="">請選擇</option>`);
@@ -550,6 +565,24 @@
         html_link = `<option value="${new_link}">${name}</option>`
         $("#web_link").append(html_link);
     };
+
+    //代理伺服
+    var proxy_data = [
+        { "name": "代理伺服器：NewIPNow不建議只剩2組", "link": "http://www.newipnow.com/" },
+        { "name": "代理伺服器：proxysite", "link": "http://proxysite.com/" },
+        { "name": "代理伺服器：4EYERPROXY", "link": "http://4everproxy.com/" },
+        { "name": "使用教學：活動/獲取迷你豆", "link": "#" },
+    ];
+    $("#select_proxy").empty().append(`<option value="">請選擇</option>`);
+    for (var i = 0, iMax = proxy_data.length; i < iMax; i++) {
+        var name = proxy_data[i].name;
+        var new_proxy = proxy_data[i].link;
+        html_proxy = `<option value="${new_proxy}">${name}</option>`
+        $("#select_proxy").append(html_proxy);
+    };
+
+
+
 
     //下拉選單更新 text1
     $("#select_gameNum").on("change", function () {
